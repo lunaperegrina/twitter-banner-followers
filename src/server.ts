@@ -133,6 +133,6 @@ async function updateBanner () {
 setInterval(() => {
   updateBanner()
 }
-, 1000 * 60)
+, 1000 * 120)
 
 // TODO: RETAFORA ISSO PELO AMOR DE DEUS PEDRO TU N TEM VERGONHA NA CARA N???????????
