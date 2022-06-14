@@ -1,138 +1,72 @@
-import { TwitterApi } from 'twitter-api-v2'
-
-import 'dotenv/config'
-import sharp from 'sharp'
-import axios from 'axios'
 
 import fs from 'fs'
+import path from 'path'
+import 'dotenv/config'
 
-const path = require('path')
+import { client } from './services'
 
-const client = new TwitterApi({
-  appKey: process.env.API_KEY as string,
-  appSecret: process.env.API_KEY_SECRET as string,
-  accessToken: process.env.ACCESS_TOKEN as string,
-  accessSecret: process.env.ACCESS_TOKEN_SECRET as string
-})
+import { getFollowers } from './getFollowers'
+import compositeBanner from './compositeBanner'
+import listDirectory from './listDirectory'
+import getProfileImage from './getProfileImage'
 
-const appOnlyClient = new TwitterApi(process.env.BEARER_TOKEN as string)
+let followersOld:any = []
 
-async function getFollowers () {
-  const followers = await appOnlyClient.v2.followers(process.env.USER_ID as string, { asPaginator: false, max_results: 4 })
-  console.log(followers)
-
-  followers.data.forEach(e => {
-    console.log(e.id)
-    getProfileImage(e.id)
-  })
-}
-
-async function getProfileImage (userId: string) {
-  const profileData = await appOnlyClient.v2.user(userId, { 'user.fields': 'profile_image_url' })
-  const profileImageUrl = profileData.data.profile_image_url?.replace('_normal', '_bigger')
-
-  const input = (await axios({ url: profileImageUrl as string, responseType: 'arraybuffer' })).data as Buffer
-
-  const width = 400
-  const r = width / 2
-  const circleShape = Buffer.from(`<svg><circle cx="${r}" cy="${r}" r="${r}" /></svg>`)
-
-  sharp(input)
-    .resize(width, width)
-    .composite([{
-      input: circleShape,
-      blend: 'dest-in'
-    }])
-    .png()
-    .toFile((path.resolve('profileImages' + `/${profileData.data.username}.jpg`)), (err, info) => err
-      ? console.error(err.message)
-      : console.log(info)
-    )
-
-  // fs.writeFileSync(path.resolve('profileImages' + `/${profileData.data.username}.jpg`), input)
-}
-
-async function listProfileImages () {
-  const files = fs.readdirSync(path.resolve('profileImages'))
-
-  const list: Array<string> = []
-
-  files.forEach(e => {
-    list.push(e)
-  })
-
-  return list
-}
-
-function getPosition (i: number): { topValue: number, leftValue: number } {
-  const targetImage = i
-
-  switch (targetImage) {
-    case 0:
-      return { topValue: 135, leftValue: 1184 }
-    case 1:
-      return { topValue: 190, leftValue: 1338 }
-    case 2:
-      return { topValue: 285, leftValue: 1184 }
-    case 3:
-      return { topValue: 345, leftValue: 1338 }
-  }
-}
-
-async function compositeBanner () {
-  const list = await listProfileImages()
-
-  for (let i = 0; i < list.length; i++) {
-    console.log(list[i])
-
-    const inputSharp = await fs.readFileSync(path.resolve(`profileImages/${list[i]}`))
-
-    const { topValue, leftValue } = getPosition(i)
-
-    let imputConposite
-
-    if (i === 0) {
-      imputConposite = await fs.readFileSync(path.resolve('src/banner-base-2.png'))
-    } else {
-      imputConposite = await fs.readFileSync(path.resolve(`banner-output/test_${i - 1}.png`))
-    }
-
-    const icon = await sharp(inputSharp)
-      .resize(110, 110)
-      .toBuffer()
-
-    try {
-      await sharp(imputConposite)
-        .composite([
-          {
-            input: icon,
-            top: topValue,
-            left: leftValue
-
-          }
-        ])
-        .toFile(`banner-output/test_${i}.png`)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-}
-
-async function changeProfileBanner (file: string) {
-  console.log('ENTROU')
-
-  await client.v1.updateAccountProfileBanner(file)
-}
+fs.mkdirSync(path.resolve('profile-images'))
 
 async function updateBanner () {
-  getFollowers()
-  compositeBanner()
-  changeProfileBanner(path.resolve('banner-output/test_3.png'))
+  const list = await listDirectory('.')
+  const followers = await getFollowers()
+
+  // const followersMock = [
+  //   { id: '113366676', name: 'jao.tsx', username: 'nattefroost' },
+  //   { id: '560181204', name: 'João Victor', username: 'joaovictor2928' },
+  //   {
+  //     id: '1394379462196793354',
+  //     name: "yeager's girl 🎸",
+  //     username: 'iloveohowl'
+  //   },
+  //   { id: '818244774', name: 'E', username: '__egs' }
+  // ]
+
+  console.log(followers)
+  console.log(followersOld)
+
+  if (JSON.stringify(followers) === JSON.stringify(followersOld)) {
+    console.log('No new followers')
+    return
+  }
+
+  followersOld = followers
+
+  console.log(list)
+
+  if (list.includes('profile-images')) {
+    await fs.rm(path.resolve('profile-images'), { recursive: true }, (err) => {
+      if (err) {
+        console.error(err.message)
+        return
+      }
+      console.log('File deleted successfully')
+
+      fs.mkdirSync(path.resolve('profile-images'))
+
+      followers.forEach(async e => {
+        console.log(e.id)
+        await getProfileImage(e.id)
+      })
+
+      compositeBanner()
+      client.v1.updateAccountProfileBanner('banner-output/test_3.png')
+    })
+  }
 }
+
+updateBanner()
 
 setInterval(() => {
   updateBanner()
 }
-, 1000 * 120)
+, 10000)
 
 // TODO: RETAFORA ISSO PELO AMOR DE DEUS PEDRO TU N TEM VERGONHA NA CARA N???????????
