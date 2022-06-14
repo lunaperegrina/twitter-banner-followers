@@ -67,6 +67,6 @@ updateBanner()
 setInterval(() => {
   updateBanner()
 }
-, 10000)
+, 60000)
 
 // TODO: RETAFORA ISSO PELO AMOR DE DEUS PEDRO TU N TEM VERGONHA NA CARA N???????????
