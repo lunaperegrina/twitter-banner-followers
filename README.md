@@ -1,5 +1,3 @@
-# twitter-banner-followers
-
 <div align="center">
    <img  src="./assets/icon.svg" width=300 />
 </div>
