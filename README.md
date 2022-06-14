@@ -6,13 +6,10 @@
 
 <p align="center">
  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
-<<<<<<< HEAD
  <img src="https://img.shields.io/badge/typescript-%23323330.svg?style=for-the-badge&logo=typescript&logoColor=FFFFFF&color=2F74C0">
  <img src="https://img.shields.io/badge/pnpm-6DA55F?style=for-the-badge&logo=pnpm&logoColor=white&color=F69220">
  <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftwbadges.glitch.me%2Fbadges%2Fv2&style=for-the-badge">
  <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftwbadges.glitch.me%2Fbadges%2Fstandard&style=for-the-badge">
-=======
->>>>>>> e347ba7aadc48961925bcc5356b9e1032b38ff6a
 </p>
 <div align="center">
    <h1>Twitter Banner Followers</h1>
