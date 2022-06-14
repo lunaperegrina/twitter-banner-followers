@@ -3,18 +3,17 @@ import { TwitterApi } from 'twitter-api-v2'
 import 'dotenv/config'
 import sharp from 'sharp'
 import axios from 'axios'
-// import fetch from 'node-fetch'
 
 import fs from 'fs'
 
 const path = require('path')
 
-// const client = new TwitterApi({
-//   appKey: process.env.API_KEY as string,
-//   appSecret: process.env.API_KEY_SECRET as string,
-//   accessToken: process.env.ACCESS_TOKEN as string,
-//   accessSecret: process.env.ACCESS_TOKEN_SECRET as string
-// })
+const client = new TwitterApi({
+  appKey: process.env.API_KEY as string,
+  appSecret: process.env.API_KEY_SECRET as string,
+  accessToken: process.env.ACCESS_TOKEN as string,
+  accessSecret: process.env.ACCESS_TOKEN_SECRET as string
+})
 
 const appOnlyClient = new TwitterApi(process.env.BEARER_TOKEN as string)
 
@@ -53,38 +52,87 @@ async function getProfileImage (userId: string) {
   // fs.writeFileSync(path.resolve('profileImages' + `/${profileData.data.username}.jpg`), input)
 }
 
-async function compositeBanner () {
-  // const input = (await axios({ url: '../profileImages/iloveohowl.jpg', responseType: 'arraybuffer' })).data as Buffer
+async function listProfileImages () {
+  const files = fs.readdirSync(path.resolve('profileImages'))
 
-  const inputSharp = fs.readFileSync(path.resolve('profileImages/iloveohowl.jpg'))
-  const imputConposite = fs.readFileSync(path.resolve('src/banner-base.png'))
+  const list: Array<string> = []
 
-  try {
-    await sharp(imputConposite)
-      .composite([
-        {
-          input: inputSharp,
-          top: 50,
-          left: 50
-        }
-      ])
-      .toFile('sammy-underwater.png')
-  } catch (e) {
-    console.log(e)
+  files.forEach(e => {
+    list.push(e)
+  })
+
+  return list
+}
+
+function getPosition (i: number): { topValue: number, leftValue: number } {
+  const targetImage = i
+
+  switch (targetImage) {
+    case 0:
+      return { topValue: 135, leftValue: 1184 }
+    case 1:
+      return { topValue: 190, leftValue: 1338 }
+    case 2:
+      return { topValue: 285, leftValue: 1184 }
+    case 3:
+      return { topValue: 345, leftValue: 1338 }
   }
 }
 
-async function updateBanner () {
-  // getFollowers()
-  compositeBanner()
+async function compositeBanner () {
+  const list = await listProfileImages()
+
+  for (let i = 0; i < list.length; i++) {
+    console.log(list[i])
+
+    const inputSharp = await fs.readFileSync(path.resolve(`profileImages/${list[i]}`))
+
+    const { topValue, leftValue } = getPosition(i)
+
+    let imputConposite
+
+    if (i === 0) {
+      imputConposite = await fs.readFileSync(path.resolve('src/banner-base-2.png'))
+    } else {
+      imputConposite = await fs.readFileSync(path.resolve(`banner-output/test_${i - 1}.png`))
+    }
+
+    const icon = await sharp(inputSharp)
+      .resize(110, 110)
+      .toBuffer()
+
+    try {
+      await sharp(imputConposite)
+        .composite([
+          {
+            input: icon,
+            top: topValue,
+            left: leftValue
+
+          }
+        ])
+        .toFile(`banner-output/test_${i}.png`)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 
-updateBanner()
+async function changeProfileBanner (file: string) {
+  console.log('ENTROU')
 
-// async function changeProfileBanner (file: string) {
-//   console.log('ENTROU')
+  await client.v1.updateAccountProfileBanner(file)
+}
 
-//   await client.v1.updateAccountProfileBanner(file)
-// }
+async function updateBanner () {
+  getFollowers()
+  compositeBanner()
+  changeProfileBanner(path.resolve('banner-output/test_3.png'))
+}
 
-// changeProfileBanner(path.join(__dirname, 'banner-base.png'))
+setInterval(() => {
+  updateBanner()
+}
+, 1000 * 60)
+
+// TODO: RETAFORA ISSO PELO AMOR DE DEUS PEDRO TU N TEM VERGONHA NA CARA N???????????
