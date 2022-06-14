@@ -34,7 +34,23 @@ async function getProfileImage (userId: string) {
 
   const input = (await axios({ url: profileImageUrl as string, responseType: 'arraybuffer' })).data as Buffer
 
-  fs.writeFileSync(path.resolve('profileImages' + `/${profileData.data.username}.jpg`), input)
+  const width = 400
+  const r = width / 2
+  const circleShape = Buffer.from(`<svg><circle cx="${r}" cy="${r}" r="${r}" /></svg>`)
+
+  sharp(input)
+    .resize(width, width)
+    .composite([{
+      input: circleShape,
+      blend: 'dest-in'
+    }])
+    .png()
+    .toFile((path.resolve('profileImages' + `/${profileData.data.username}.jpg`)), (err, info) => err
+      ? console.error(err.message)
+      : console.log(info)
+    )
+
+  // fs.writeFileSync(path.resolve('profileImages' + `/${profileData.data.username}.jpg`), input)
 }
 
 async function compositeBanner () {
@@ -44,10 +60,10 @@ async function compositeBanner () {
   const imputConposite = fs.readFileSync(path.resolve('src/banner-base.png'))
 
   try {
-    await sharp(inputSharp)
+    await sharp(imputConposite)
       .composite([
         {
-          input: imputConposite,
+          input: inputSharp,
           top: 50,
           left: 50
         }
