@@ -56,10 +56,12 @@ async function updateBanner () {
         await getProfileImage(e.id)
       })
 
-      compositeBanner()
-      client.v1.updateAccountProfileBanner('banner-output/test_3.png')
+      console.log('bem antes')
     })
   }
+
+  await compositeBanner() // TODO: Cria uma Promise pq nao ta funcionando quando alguem novo segue
+  await client.v1.updateAccountProfileBanner('banner-output/test_3.png')
 }
 
 updateBanner()
@@ -68,5 +70,3 @@ setInterval(() => {
   updateBanner()
 }
 , 60000)
-
-// TODO: RETAFORA ISSO PELO AMOR DE DEUS PEDRO TU N TEM VERGONHA NA CARA N???????????

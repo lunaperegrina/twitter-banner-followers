@@ -15,9 +15,15 @@ export default async function compositeBanner () {
 
     let imputConposite
 
+    console.log('antes')
+
     if (i === 0) {
+      console.log('aqui')
+
       imputConposite = await fs.readFileSync(path.resolve('src/banner-base-2.png'))
     } else {
+      console.log('acula')
+
       imputConposite = await fs.readFileSync(path.resolve(`banner-output/test_${i - 1}.png`))
     }
 
