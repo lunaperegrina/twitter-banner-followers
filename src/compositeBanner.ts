@@ -22,15 +22,9 @@ export default async function compositeBanner () {
 
     console.log(2.2)
 
-    if (i === 0) {
-      console.log('aqui')
-
-      imputConposite = await fs.readFileSync(path.resolve('src/banner-base-2.png'))
-    } else {
-      console.log('acula')
-
-      imputConposite = await fs.readFileSync(path.resolve(`banner-output/test_${i - 1}.png`))
-    }
+    i === 0
+      ? imputConposite = await fs.readFileSync(path.resolve('src/banner-base-2.png'))
+      : imputConposite = await fs.readFileSync(path.resolve(`banner-output/test_${i - 1}.png`))
 
     const icon = await sharp(inputSharp)
       .resize(110, 110)
