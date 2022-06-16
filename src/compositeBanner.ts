@@ -11,7 +11,12 @@ export default async function compositeBanner () {
   console.log(2)
 
   const list = await listDirectory('./profile-images')
+<<<<<<< HEAD
   console.table(list)
+=======
+  console.log(list)
+  console.log(list === [])
+>>>>>>> 5f3acb311db5580e32f1ebac48e962e4b5e8cfc0
 
   return JSON.stringify(list) === JSON.stringify([])
     ? console.log('No images found')
