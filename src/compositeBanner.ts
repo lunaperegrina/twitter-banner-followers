@@ -6,7 +6,10 @@ import path from 'path'
 import sharp from 'sharp'
 
 export default async function compositeBanner () {
-  const list = await listDirectory('profile-images')
+  console.log(2)
+
+  const list = await listDirectory('.')
+  console.log(list)
 
   for (let i = 0; i < list.length; i++) {
     const inputSharp = await fs.readFileSync(path.resolve(`profile-images/${list[i]}`))
@@ -42,6 +45,8 @@ export default async function compositeBanner () {
           }
         ])
         .toFile(`banner-output/test_${i}.png`)
+
+      console.log(2.9)
     } catch (e) {
       console.log(e)
     }
