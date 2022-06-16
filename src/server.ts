@@ -6,7 +6,7 @@ import { client } from './services'
 import compositeBanner from './compositeBanner'
 import getProfileImage from './getProfileImage'
 import verifyFollowers from './verifyFollowers'
-import deleteDirectory from './deleteDirectory'
+import deleteAndCreateDirectory from './deleteAndCreateDirectory'
 
 function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -29,20 +29,18 @@ async function updateBanner () {
 
 async function init () {
   Promise.all([
-    await deleteDirectory('.', 'profile-images'),
-    await deleteDirectory('.', 'banner-output'),
+    await deleteAndCreateDirectory('.', 'profile-images'),
+    await deleteAndCreateDirectory('.', 'banner-output'),
     await updateBanner(),
     await sleep(5000), // Pra carregar as fotos
-    await compositeBanner()
-    // await client.v1.updateAccountProfileBanner('banner-output/test_3.png')
+    await compositeBanner(),
+    await client.v1.updateAccountProfileBanner('banner-output/test_3.png')
   ]).then(() => {
     console.log('Done')
   })
 }
 
-init()
-
-// setInterval(() => {
-//   updateBanner()
-// }
-// , 60000)
+setInterval(() => {
+  init()
+}
+, 60000)

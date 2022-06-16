@@ -3,7 +3,7 @@ import listDirectory from './listDirectory'
 import fs from 'fs'
 import path from 'path'
 
-export default async function deleteDirectory (FatherDirectory: string, TargetDirectory: string) {
+export default async function deleteAndCreateDirectory (FatherDirectory: string, TargetDirectory: string) {
   console.log(0.1)
 
   const include = await (await listDirectory(FatherDirectory)).includes(TargetDirectory)
