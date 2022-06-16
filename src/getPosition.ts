@@ -1,4 +1,9 @@
-export default function getPosition (i: number): { topValue: number, leftValue: number } {
+export type TLimit = {
+  topValue: number
+  leftValue: number
+}
+
+export default function getPosition (i: number):TLimit {
   const targetImage = i
 
   console.log('targetImage', targetImage)

@@ -1,5 +1,5 @@
 import listDirectory from './listDirectory'
-import getPosition from './getPosition'
+import getPosition, { TLimit } from './getPosition'
 
 import fs from 'fs'
 import path from 'path'
@@ -11,14 +11,16 @@ export default async function compositeBanner () {
   const list = await listDirectory('./profile-images')
   console.log(list)
 
-  for (let i = 0; i < list.length; i++) {
+  for (let i:number = 0; i < list.length; i++) {
+    console.log(2.1)
+
     const inputSharp = await fs.readFileSync(path.resolve(`profile-images/${list[i]}`))
 
-    const { topValue, leftValue } = getPosition(i)
+    const { topValue, leftValue }:TLimit = getPosition(i)
 
     let imputConposite
 
-    console.log('antes')
+    console.log(2.2)
 
     if (i === 0) {
       console.log('aqui')

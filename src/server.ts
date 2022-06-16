@@ -8,6 +8,10 @@ import getProfileImage from './getProfileImage'
 import verifyFollowers from './verifyFollowers'
 import deleteDirectory from './deleteDirectory'
 
+function sleep (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 async function updateBanner () {
   console.log(1)
 
@@ -26,7 +30,9 @@ async function updateBanner () {
 async function init () {
   Promise.all([
     await deleteDirectory('.', 'profile-images'),
+    await deleteDirectory('.', 'banner-output'),
     await updateBanner(),
+    await sleep(5000), // Pra carregar as fotos
     await compositeBanner()
     // await client.v1.updateAccountProfileBanner('banner-output/test_3.png')
   ]).then(() => {

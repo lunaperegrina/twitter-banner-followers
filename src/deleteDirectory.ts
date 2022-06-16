@@ -8,7 +8,7 @@ export default async function deleteDirectory (FatherDirectory: string, TargetDi
 
   const include = await (await listDirectory(FatherDirectory)).includes(TargetDirectory)
 
-  include
+  await include
     ? await fs.rmdirSync(path.resolve(TargetDirectory), { recursive: true })
     : console.log('Directory not found')
 
