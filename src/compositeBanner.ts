@@ -8,7 +8,7 @@ import sharp from 'sharp'
 export default async function compositeBanner () {
   console.log(2)
 
-  const list = await listDirectory('.')
+  const list = await listDirectory('./profile-images')
   console.log(list)
 
   for (let i = 0; i < list.length; i++) {

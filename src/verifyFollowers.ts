@@ -1,10 +1,10 @@
-import { followersMock } from './mocks'
+import { followersMock, TFollowers } from './mocks'
 
 import { getFollowers } from './getFollowers'
 
 const followersOld:any = []
 
-export default async function verifyFollowers (): Promise<Array<any>> {
+export default async function verifyFollowers (): Promise<TFollowers> {
   // const followers = await getFollowers()
   const followers = followersMock
 

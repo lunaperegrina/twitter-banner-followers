@@ -1,4 +1,10 @@
-export const followersMock = [
+export type TFollowers = {
+  id: string;
+  name: string;
+  username: string;
+}[]
+
+export const followersMock:TFollowers = [
   { id: '113366676', name: 'jao.tsx', username: 'nattefroost' },
   { id: '560181204', name: 'João Victor', username: 'joaovictor2928' },
   {
