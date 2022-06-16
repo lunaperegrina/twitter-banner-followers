@@ -45,8 +45,10 @@ async function init(){
     await deleteDirectory('.', 'profile-images'),
     await updateBanner(), 
     await compositeBanner(),  
-    await client.v1.updateAccountProfileBanner('banner-output/test_3.png')
-  ])
+    // await client.v1.updateAccountProfileBanner('banner-output/test_3.png')
+  ]).then(() => {
+    console.log('Done')
+  })
 }
 
 init()
