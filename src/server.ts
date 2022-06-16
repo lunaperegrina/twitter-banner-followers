@@ -1,8 +1,6 @@
 
 import 'dotenv/config'
 
-import { client } from './services'
-
 import compositeBanner from './compositeBanner'
 import getProfileImage from './getProfileImage'
 import verifyFollowers from './verifyFollowers'
@@ -32,9 +30,8 @@ async function init () {
     await deleteAndCreateDirectory('.', 'profile-images'),
     await deleteAndCreateDirectory('.', 'banner-output'),
     await updateBanner(),
-    await sleep(5000), // Pra carregar as fotos
-    await compositeBanner(),
-    await client.v1.updateAccountProfileBanner('banner-output/test_3.png')
+    await sleep(3000), // Pra carregar as fotos
+    await compositeBanner()
   ]).then(() => {
     console.log('Done')
   })
@@ -43,4 +40,4 @@ async function init () {
 setInterval(() => {
   init()
 }
-, 60000)
+, 20000)
