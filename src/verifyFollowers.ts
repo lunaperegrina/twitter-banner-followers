@@ -9,8 +9,8 @@ export default async function verifyFollowers (): Promise<TFollowers> {
   const followers = await getFollowers()
   // const followers = followersMock
 
-  console.log(followers)
-  console.log(followersOld)
+  console.table(followers)
+  console.table(followersOld)
 
   const response = JSON.stringify(followers) === JSON.stringify(followersOld) ? [] : followers
 
