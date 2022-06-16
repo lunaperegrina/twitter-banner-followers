@@ -42,4 +42,4 @@ async function init () {
 setInterval(() => {
   init()
 }
-, 60000)
+, 20000)
