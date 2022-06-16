@@ -65,7 +65,7 @@ Isso iniciará o monitoramento. Ao final do arquivo `index.js` temos a seguinte 
 
 ```js
 setInterval(() => {
-updateBanner()
+init()
 }, 60000)
 ```
 O limite do endpoint consultado é de 15 requisições a cada 15 minutos, então o ideal é deixar em 60000 (uma requisição por minuto)
