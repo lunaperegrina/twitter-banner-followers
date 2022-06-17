@@ -6,6 +6,8 @@ import getProfileImage from './getProfileImage'
 import verifyFollowers from './verifyFollowers'
 import deleteAndCreateDirectory from './deleteAndCreateDirectory'
 
+import express from 'express'
+
 function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -44,4 +46,18 @@ init().then(() => {
     init()
   }
   , 40000)
+})
+
+/* NAO TEM NADA DE IMPORTANTE, É SO POR CAUSA DO HEROKU */
+
+const app = express()
+
+const port = process.env.PORT || 3000
+
+app.get('/', function (req, res) {
+  res.send('Coloquei o express pra ver se o Heroku para de reclamar e me deixa ser feliz')
+})
+
+app.listen(port, () => {
+  console.log(`listening on port ${port} ...... `)
 })

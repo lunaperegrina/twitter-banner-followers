@@ -28,6 +28,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
+    "express": "^4.18.1",
     "sharp": "^0.30.6",
     "twitter-api-v2": "^1.12.2"
   }
