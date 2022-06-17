@@ -45,7 +45,7 @@ init().then(() => {
   setInterval(() => {
     init()
   }
-  , 60 * 1000)
+  , 65 * 1000)
 })
 
 /* NAO TEM NADA DE IMPORTANTE, É SO POR CAUSA DO HEROKU */
