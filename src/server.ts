@@ -39,7 +39,9 @@ async function init () {
 
 // init()
 
-setInterval(() => {
-  init()
-}
-, 100000)
+init().then(() => {
+  setInterval(() => {
+    init()
+  }
+  , 100000)
+})
