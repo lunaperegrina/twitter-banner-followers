@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Coloca as últimas pessoas que te seguiram no Twitter dentro do banner da sua conta ;D",
   "main": "index.js",
+  "packageManager": "pnpm@7.1.9",
   "scripts": {
     "dev": "nodemon src/server.ts",
     "build": "sucrase ./src -d .dist --transforms typescript, imports"
