@@ -58,18 +58,28 @@ USER_ID=
 ## Iniciando
 
 ```bash
-pnpm dev
+pnpm start
 ```
 
-Isso iniciará o monitoramento. Ao final do arquivo `index.js` temos a seguinte função:
+Isso iniciará o monitoramento. Ao final do arquivo `src/server.js` temos a seguinte função:
 
 ```js
 setInterval(() => {
 init()
-}, 60000)
+}, 65000)
 ```
-O limite do endpoint consultado é de 15 requisições a cada 15 minutos, então o ideal é deixar em 60000 (uma requisição por minuto)
+O limite do endpoint consultado é de 15 requisições a cada 15 minutos, então o ideal é deixar em 65000 (5 segundos a mais só pra garantir que a aplicação não vai crashar)
 
-## Possiveis bugs:
+## Docker
 
-Sempre delete a pasta `profile-images` antes do `pnpm dev` para evitar bugs.
+Super simples, apenas dê um build e um run.
+
+```bash
+ docker build -t banner:1.0 .
+```
+
+```bash
+ docker run --name banner-teste -d <ID-da-imagem>
+```
+
+
