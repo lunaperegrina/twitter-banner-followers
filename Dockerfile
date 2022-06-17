@@ -17,5 +17,5 @@ CMD ["bash","--version"]
 RUN npm install -g pnpm
 RUN pnpm install
 
-CMD ["pnpm", "dev"]
+CMD ["pnpm", "start"]
 # RUN pnpm dev
