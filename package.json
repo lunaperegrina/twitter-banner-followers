@@ -1,15 +1,15 @@
 {
   "name": "twitter-banner-followers",
   "version": "1.0.0",
-  "description": "",
+  "description": "Coloca as últimas pessoas que te seguiram no Twitter dentro do banner da sua conta ;D",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.ts",
     "build": "sucrase ./src -d .dist --transforms typescript, imports"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "pedroperegrinaa",
+  "license": "GPLV3",
   "devDependencies": {
     "@types/node": "^17.0.42",
     "@types/sharp": "^0.30.4",
@@ -27,7 +27,6 @@
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
-    "node-fetch": "^3.2.6",
     "sharp": "^0.30.6",
     "twitter-api-v2": "^1.12.2"
   }
