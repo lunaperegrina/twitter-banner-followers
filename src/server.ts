@@ -43,5 +43,5 @@ init().then(() => {
   setInterval(() => {
     init()
   }
-  , 100000)
+  , 50000)
 })
