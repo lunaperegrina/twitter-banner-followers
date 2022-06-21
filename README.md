@@ -12,6 +12,11 @@
 <div align="center">
    <h1>Twitter Banner Followers</h1>
 Coloca as últimas pessoas que te seguiram no Twitter dentro do banner da sua conta ;D
+</br>
+</br>
+<img = src="./assets/print-perfil-twitter.png">
+</br>
+</br>
 </div>
 
 ## Instalação:
