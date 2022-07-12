@@ -19,7 +19,7 @@ Coloca as últimas pessoas que te seguiram no Twitter dentro do banner da sua co
 </br>
 </div>
 
-## Instalação:
+## 📦 Instalação:
 
 Estou assumindo que você possui [Git](https://git-scm.com/) e [NodeJS](https://nodejs.org/en/) em seu sistema.
 
@@ -35,12 +35,12 @@ Download do código:
  git clone https://github.com/pedroperegrinaa/twitter-banner-followers.git
 ```
 
-Download dos módulos:
+"Download dos módulos:
 
 ```bash
 pnpm install
 ```
-## .env
+## 🔒 .env
 
 Crie um arquivo .env e preencha com os seguintes valores:
 
@@ -60,7 +60,7 @@ USER_ID=
 
 **USER_ID:**  Você precisa definir o ID da conta que deseja coletar os seguidores. Para conseguir o ID do usuario, use este site: https://tweeterid.com/ 
 
-## Iniciando
+## ⌨ Iniciando
 
 ```bash
 pnpm start
@@ -75,7 +75,7 @@ init()
 ```
 O limite do endpoint consultado é de 15 requisições a cada 15 minutos, então o ideal é deixar em 65000 (5 segundos a mais só pra garantir que a aplicação não vai crashar)
 
-## Docker
+## 🐳 Docker
 
 Super simples, apenas dê um build e um run.
 
