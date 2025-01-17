@@ -14,7 +14,7 @@
 Coloca as últimas pessoas que te seguiram no Twitter dentro do banner da sua conta ;D
 </br>
 </br>
-<img = src="./assets/print-perfil-twitter.png">
+<!-- <img = src="./assets/print-perfil-twitter.png"> -->
 </br>
 </br>
 </div>
