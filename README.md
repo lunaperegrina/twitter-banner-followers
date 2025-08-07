@@ -32,7 +32,7 @@ npm install -g pnpm
 Download do código:
 
 ```bash
- git clone https://github.com/pedroperegrinaa/twitter-banner-followers.git
+ git clone https://github.com/lunaperegrinaa/twitter-banner-followers.git
 ```
 
 "Download dos módulos:
